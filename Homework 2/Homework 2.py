@@ -11,6 +11,7 @@ Text = Introduction_Clear.rstrip()
 Ready_Text = Text.lower()
 print("Увага! Текст відформатовано згідно умов. Вивід на екран:")
 print(Ready_Text)
+#   Блок замены символа
 Replaced_Word = input("Введіть слово, яке потрібно замінити(Для коректної роботи використовувати лише нижній регістр):")
 Replaced_to = input("Введіть слово на заміну(Для коректної роботи використовувати лише нижній регістр):")
 Final_Text = Ready_Text.replace(Replaced_Word, Replaced_to)
