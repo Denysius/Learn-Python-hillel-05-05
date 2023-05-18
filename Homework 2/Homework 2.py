@@ -1,16 +1,17 @@
 import string
 
 print('Вітаю! Давайте познайомимось, роскажіть трішки про себе:')
-Introduction = input()      #Вводим начальный текст
-print("Йде перевірка на зайві символи...")
+#   Вводим начальный текст
+Introduction = input()
+#   Удаляем лишние символы
 Introduction_Clear = Introduction.translate(str.maketrans({key: None for key in string.punctuation}))
-print("йде перевірка на зайві пробели у кінці рядка...")
+#   Удаляем лишние пробелы в конце
 Text = Introduction_Clear.rstrip()
+#   Перевод в нижний регистр
 Ready_Text = Text.lower()
-print("Увага! Тексте форматовано у нижній регістр. Вивід на екран:")
+print("Увага! Текст відформатовано згідно умов. Вивід на екран:")
 print(Ready_Text)
-Replaced_Word = input("Введіть слово, яке потрібно замінити:")
-index = Ready_Text.find(Replaced_Word)
+Replaced_Word = input("Введіть слово, яке потрібно замінити(Для коректної роботи використовувати лише нижній регістр):")
 Replaced_to = input("Введіть слово на заміну(Для коректної роботи використовувати лише нижній регістр):")
 Final_Text = Ready_Text.replace(Replaced_Word, Replaced_to)
 print("Виводимо на екран:")
