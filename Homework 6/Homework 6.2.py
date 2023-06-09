@@ -21,7 +21,6 @@ def perimeter(a, b, c):
 
 def Area(a, b, c):
     import math
-    # Використаємо формулу Герона для обчислення площі трикутника
     half_p = perimeter / 2
     S = math.sqrt(half_p * (half_p - a) * (half_p - b) * (half_p - c))
     return S
