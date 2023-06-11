@@ -5,6 +5,7 @@ def simple_number(num):
     else:
         return False
 
+
 # # Вхідні параметри
 if __name__ == '__main__':
     input_number = int(input("Введіть ціле число (до 100): "))
