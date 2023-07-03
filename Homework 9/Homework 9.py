@@ -1,0 +1,137 @@
+import os
+import json
+import time
+
+filename = "saved_notes.txt"
+
+
+def f_wrapper(filename, mode):
+    """
+    Функція для відкриття файлу.
+    Приймає ім'я файлу та режим, повертає відповідний об'єкт файлу.
+    """
+    return open(filename, mode)
+
+
+def add_new_note():
+    """
+    Функція для додавання нової нотатки.
+    Користувач вводить текст нотатки, яка додається до списку нотаток.
+    """
+    user_input = input("Введіть нотатку: ")
+    timecounter = time.time()
+    note = {"text": user_input, "time": timecounter}
+    notes.append(note)
+    return note
+
+
+def sort_by_time(note):
+    """
+    Функція для сортування нотаток за значенням time.
+    Використовується в функціях сортування, як ключ для порівняння нотаток за часом.
+    """
+    return note["time"]
+
+
+def sort_by_text_length(note):
+    """
+    Функція для сортування нотаток за довжиною тексту.
+    Використовується в функціях сортування, як ключ для порівняння нотаток за довжиною.
+    """
+    return len(note["text"])
+
+
+def show_all_from_first():
+    """
+    Функція для виведення нотаток у хронологічному порядку - від найранішої до найпізнішої.
+    Спочатку сортуємо нотатки за часом, потім виводимо їх текст.
+    """
+    sorted_notes = sorted(notes, key=sort_by_time)
+    print("Виведення нотаток від найранішої до найпізнішої:")
+    for note in sorted_notes:
+        print(note["text"])
+    return sorted_notes
+
+
+def show_all_from_last():
+    """
+    Функція для виведення нотаток у хронологічному порядку - від найпізнішої до найранішої.
+    Спочатку сортуємо нотатки за часом у зворотному порядку, потім виводимо їх текст.
+    """
+    sorted_notes = sorted(notes, key=sort_by_time, reverse=True)
+    print("Виведення нотаток від найпізнішої до найранішої:")
+    for note in sorted_notes:
+        print(note["text"])
+    return sorted_notes
+
+
+def show_all_from_longest():
+    """
+    Функція для виведення нотаток у порядку їх довжини - від найдовшої до найкоротшої.
+    Спочатку сортуємо нотатки за довжиною тексту у зворотному порядку, потім виводимо їх.
+    """
+    sorted_notes = sorted(notes, key=sort_by_text_length, reverse=True)
+    print("Виведення нотаток від найдовшої до найкоротшої:")
+    for note in sorted_notes:
+        print(note["text"])
+    return sorted_notes
+
+
+def show_all_from_shortest():
+    """
+    Функція для виведення нотаток у порядку їх довжини - від найкоротшої до найдовшої
+    Спочатку сортуємо нотатки за довжиною тексту, потім виводимо їх.
+    """
+    sorted_notes = sorted(notes, key=sort_by_text_length)
+    print("Виведення нотаток від найкоротшої до найдовшої:")
+    for note in sorted_notes:
+        print(note["text"])
+    return sorted_notes
+
+
+def save_notes():
+    """
+    Функція для збереження нотаток у файл.
+    Використовує f_wrapper для створення, запису та закриття файлу.
+    """
+    with f_wrapper(filename, "w") as file:
+        json.dump(notes, file)
+
+
+def load_notes():
+    """
+    Функція для завантаження нотаток з файлу.
+    Перевіряє наявність файлу, відкриває його за допомогою f_wrapper у режимі читання,
+    читає дані з файлу за допомогою file.read() і потім використовує json.loads
+    для перетворення рядка JSON у список нотаток.
+    """
+    if os.path.exists(filename):
+        with f_wrapper(filename, "r") as file:
+            data = file.read()
+            if data:
+                notes.extend(json.loads(data))
+
+
+if __name__ == '__main__':
+    commands = {
+        "add": add_new_note,
+        "earliest": show_all_from_first,
+        "latest": show_all_from_last,
+        "longest": show_all_from_longest,
+        "shortest": show_all_from_shortest,
+    }
+    notes = []
+    load_notes()  # Завантажуємо нотатки з файлу при запуску програми
+    while True:
+        print("Список команд: add, earliest, latest, longest, shortest, exit")
+        print("Введіть команду:")
+        command = input("> ")
+
+        if command in commands:
+            result = commands[command]()
+
+        elif command == "exit":
+            save_notes()  # Зберігаємо нотатки у файл перед виходом
+            break
+        else:
+            print("Невідома команда. Будь ласка, спробуйте ще раз.")
