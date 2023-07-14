@@ -1,3 +1,5 @@
+import random
+
 class Animal:
     def __init__(self, name: str, age: int, say_word: str, preferred_food: set):
         """
@@ -13,6 +15,7 @@ class Animal:
         self.say_word = say_word
         self.preferred_food = preferred_food
         self.hungry = True
+        self.visited_vet = False  # поле перевірки відвідування ветеринара
 
     def __str__(self):
         return f'{self.animal_type} {self.name}'
@@ -45,19 +48,11 @@ class Animal:
         :param hours: сколько часов мы проводим с животным
         :return: что получаем взамен
         """
-        # так пишется в классах-родителях когда метод создан как
-        # шаблонный и заполняться должен в наследниках
-        # при вызове этого метода програма выйдет с ошибкой
-        # так мы подчёркиваем что его вызывать не нужно
-
-        # подчёркивает необходимость заполнения этого метода в каждом наследнике
         raise NotImplementedError
 
-        """примеры с Exception 
-        try:
-            raise NotImplementedError
-        except ValueError:
-            print('обработка Value Error')
-        except UnicodeError:
-            print('обработка Unicode Error')
+    def needs_vet_care(self) -> bool:
         """
+        Метод перевіряє, чи потрібно тварині відвідати ветеринара
+        :return: True, якщо потрібно відвідати ветеринара, False - якщо ні
+        """
+        return self.hungry or not self.visited_vet

@@ -1,6 +1,6 @@
 from .animal import Animal
 from random import randint
-
+import random
 
 class Hen(Animal):
     """
@@ -20,6 +20,7 @@ class Hen(Animal):
             preferred_food={'зерно', 'пшено'}
         )
         self.animal_type = 'Курица'
+        self.vet_care_needed = None  # переменная для сохранения результата проверки
 
     def treat(self, hours: int) -> str:
         """
@@ -33,3 +34,13 @@ class Hen(Animal):
             return 'Куриных яиц: 10 шт.'
         print(f'Вы ухаживаете за {self} {hours} часов и получаете немного куриных яиц')
         return f'Куриных яиц: {randint(1, 5)}'
+
+    def needs_vet_care(self) -> bool:
+        """
+        Метод перевіряє, чи потрібно до ветеринара
+        :return: True, якщо потрібно до ветеринара, False - якщо ні
+        """
+        if self.vet_care_needed is None:  # Перевіряємо, чи була вже виконана перевірка
+            self.vet_care_needed = random.choice([True, False])  # Рандомно встановлюємо результат перевірки
+        return self.vet_care_needed
+

@@ -1,4 +1,5 @@
 from .animal import Animal
+import random
 
 
 class Dog(Animal):
@@ -18,6 +19,7 @@ class Dog(Animal):
             preferred_food={'каша', 'мясо', 'кость'}
         )
         self.animal_type = 'Собака'
+        self.vet_care_needed = None  # Змінна для зберігання результату перевірки
 
     def treat(self, hours: int) -> str:
         """
@@ -30,3 +32,12 @@ class Dog(Animal):
             return 'Хорошее настроение'
         print(f'Вы гуляете с {self} {hours} часов.')
         return ''
+
+    def needs_vet_care(self) -> bool:
+        """
+        Метод перевіряє, чи потрібно до ветеринара
+        :return: True, якщо потрібно до ветеринара, False - якщо ні
+        """
+        if self.vet_care_needed is None:  # Перевіряємо, чи була вже виконана перевірка
+            self.vet_care_needed = random.choice([True, False])  # Рандомно встановлюємо результат перевірки
+        return self.vet_care_needed
