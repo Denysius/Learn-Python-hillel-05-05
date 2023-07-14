@@ -28,7 +28,7 @@ if __name__ == '__main__':
             food = choice(available_food)
             animal.eat(food)
         """
-        for food in choices(available_food, k=3):
+        for food in choices(available_food, k=6):
             what_we_lost.append(food)
             animal.eat(food)
         if animal.hungry:
