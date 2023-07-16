@@ -6,7 +6,7 @@ def fibonacci_generator(end_index):
         a, b = b, a + b
 
 
-# Використовуємо генератор для отримання чисел Фібоначчі до заданого індексу
-fibonacci_sequence = fibonacci_generator(15)
-for number in fibonacci_sequence:
-    print(number)
+if __name__ == '__main__':
+    fibonacci_sequence = fibonacci_generator(15)
+    for number in fibonacci_sequence:
+        print(number)
